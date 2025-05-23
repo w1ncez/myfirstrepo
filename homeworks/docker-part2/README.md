@@ -36,6 +36,7 @@
 
 ```
 version: '3'
+
 services:
 volumes:
 networks:
@@ -54,6 +55,27 @@ networks:
 1. Создайте конфигурацию docker-compose для Prometheus с именем контейнера <ваши фамилия и инициалы>-netology-prometheus. 
 2. Добавьте необходимые тома с данными и конфигурацией (конфигурация лежит в репозитории в директории [6-04/prometheus](https://github.com/netology-code/sdvps-homeworks/tree/main/lecture_demos/6-04/prometheus) ).
 3. Обеспечьте внешний доступ к порту 9090 c докер-сервера.
+
+```
+version: '3'
+
+services:
+  prometheus:
+    image: prom/prometheus:v2.36.1
+    container_name: vintsentinisg-netology-prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - type: bind
+        source: ./prometheus/prometheus.yml
+        target: /etc/prometheus/prometheus.yml
+    networks:
+      vintsentinisg-my-netology-hw
+        ipam:
+          config:
+          - subnet: 10.5.0.0/16
+
+```
 
 ---
 
