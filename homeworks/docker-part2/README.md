@@ -9,9 +9,16 @@
 Установите Docker Compose и опишите, для чего он нужен и как может улучшить лично вашу жизнь.
 
 *Docker Compose был установлен ранее вместе с Dosker Engine, проверка его установки осуществляется командой*  
-`docker compose version`  
+```
+docker compose version 
+```
 *Вывод команды:*  
-`Docker Compose version v2.35.1`  
+```
+docker-compose version 1.29.2, build unknown
+docker-py version: 5.0.3
+CPython version: 3.12.3
+OpenSSL version: OpenSSL 3.0.13 30 Jan 2024
+```  
 
 *Docker compose делает мою жизнь лучше благодаря возможности централизованно контролировать зависимые контейнеры, сохраняя консистентность среды разработки и продуктивной инфраструктуры. Вместо запуска отдельных контейнеров вручную, я могу описать всё необходимое в одном файле , а затем одним действием автоматически развернуть и сконфигурировать инфраструктуру.*
 
@@ -35,7 +42,7 @@
 
 
 ```
-version: '3'
+version: '3.3'
 
 services:
 volumes:
@@ -59,23 +66,19 @@ networks:
 3. Обеспечьте внешний доступ к порту 9090 c докер-сервера.
 
 ```
-version: '3'
 
 services:
-prometheus:
-image: prom/prometheus:v2.47.2
-container_name: vintsentinisg-netology-prometheus
-command: --web.enable-lifecycle --config.file=/etc/prometheus/prometheus.yml
-ports:
-- 9090:9090
+  prometheus:
+    image: prom/prometheus:v2.54.1
+    container_name: vintsentinisg-netology-prometheus
+    command: --web.enable-lifecycle --config.file=/etc/prometheus/prometheus.yml
+    ports:
+    - 9090:9090
+    volumes:
+    - ./prometheus:/etc/prometheus
+    - prometheus-data:/prometheus
 volumes:
-- ./prometheus:/etc/prometheus
-- prometheus-data:/prometheus
-networks:
-- vintsentinisg-my-netology-hw
-restart: always
-volumes:
-prometheus-data:
+   prometheus-data:
 
 ```
 
@@ -89,20 +92,14 @@ prometheus-data:
 2. Обеспечьте внешний доступ к порту 9091 c докер-сервера.
 
 ```
-version: '3'
+
 services:
-pushgateway:
-image: prom/pushgateway:v1.6.2
-container_name: vintsentinisg-netology-pushgateway
-ports:
-- 9091:9091
-networks:
-- vintsentinisg-my-netology-hw
-depends_on:
-- prometheus
-restart: unless-stopped
-
-
+  pushgateway:
+    image: prom/pushgateway:v1.9.0
+    container_name: vintsentinisg-netology-pushgateway
+    ports:
+    - 9091:9091
+    
 ```
 
 
@@ -118,26 +115,20 @@ restart: unless-stopped
 4. Обеспечьте внешний доступ к порту 3000 c порта 80 докер-сервера.
 
 ```
-version: '3'
-services:
-grafana:
-image: grafana/grafana
-container_name: vintsentinisg-netology-grafana
-environment:
-GF_PATHS_CONFIG: /etc/grafana/custom.ini
-ports:
-- 80:3000
-volumes:
-- ./grafana:/etc/grafana
-- grafana-data:/var/lib/grafana
-networks:
-- vintsentinisg-my-netology-hw
-depends_on:
-- prometheus
-restart: unless-stopped
-volumes:
-grafana-data:
 
+services:
+  grafana:
+    image: grafana/grafana:11.2.0
+    container_name: vintsentinisg-netology-grafana
+    environment:
+     GF_PATHS_CONFIG: /etc/grafana/custom.ini
+    ports:
+    - 80:3000
+    volumes:
+    - ./grafana:/etc/grafana
+    - grafana-data:/var/lib/grafana
+volumes:
+  grafana-data:
 
 ```
 
@@ -154,10 +145,26 @@ grafana-data:
 5. Запустите сценарий в detached режиме.
 
 ```
-
+services:
+  prometheus:
+    networks:
+    - vintsentinisg-my-netology-hw
+    restart: always
+  pushgateway:
+    networks:
+    - vintsentinisg-my-netology-hw
+    depends_on:
+    - prometheus
+    restart: unless-stopped
+  grafana:
+    networks:
+    - vintsentinisg-my-netology-hw
+    depends_on:
+    - prometheus
+    restart: unless-stopped
 
 ```
-
+![docker ps](https://github.com/w1ncez/myfirstrepo/blob/main/homeworks/docker-part2/Screenshot%20from%202025-05-24%2019-47-59.png?raw=true)
 
 
 
@@ -177,6 +184,60 @@ grafana-data:
 * скриншот команды docker ps после запуске docker-compose.yml;
 * скриншот графика, постоенного на основе вашей метрики.
 
+```
+version: '3.3'
+
+services:
+  prometheus:
+    image: prom/prometheus:v2.54.1
+    container_name: vintsentinisg-netology-prometheus
+    command: --web.enable-lifecycle --config.file=/etc/prometheus/prometheus.yml
+    ports:
+    - 9090:9090
+    volumes:
+    - ./prometheus:/etc/prometheus
+    - prometheus-data:/prometheus
+    networks:
+    - vintsentinisg-my-netology-hw
+    restart: always
+  pushgateway:
+    image: prom/pushgateway:v1.9.0
+    container_name: vintsentinisg-netology-pushgateway
+    ports:
+    - 9091:9091
+    networks:
+    - vintsentinisg-my-netology-hw
+    depends_on:
+    - prometheus
+    restart: unless-stopped
+  grafana:
+    image: grafana/grafana:11.2.0
+    container_name: vintsentinisg-netology-grafana
+    environment:
+     GF_PATHS_CONFIG: /etc/grafana/custom.ini
+    ports:
+    - 80:3000
+    volumes:
+    - ./grafana:/etc/grafana
+    - grafana-data:/var/lib/grafana
+    networks:
+    - vintsentinisg-my-netology-hw
+    depends_on:
+    - prometheus
+    restart: unless-stopped
+volumes:
+  prometheus-data:
+  grafana-data:
+networks:
+ vintsentinisg-my-netology-hw:
+  driver: bridge
+  ipam:
+   config:
+   - subnet: 10.5.0.0/16
+```
+
+![docker ps](https://github.com/w1ncez/myfirstrepo/blob/main/homeworks/docker-part2/Screenshot%20from%202025-05-24%2019-50-49.png?raw=true)
+![grafana dashboard](https://github.com/w1ncez/myfirstrepo/blob/main/homeworks/docker-part2/Screenshot%20from%202025-05-24%2019-56-48.png?raw=true)
 ---
 
 ### Задание 8
@@ -187,33 +248,6 @@ grafana-data:
 
 В качестве решения приложите скриншот консоли с проделанными действиями.
 
----
-
-## Дополнительные задания* (со звёздочкой)
-
-Их выполнение необязательное и не влияет на получение зачёта по домашнему заданию. Можете их решить, если хотите лучше разобраться в материале.
+![docker compose down](https://github.com/w1ncez/myfirstrepo/blob/main/homeworks/docker-part2/Screenshot%20from%202025-05-24%2020-02-20.png?raw=true)
 
 ---
-
-### Задание 9* 
-
-**Выполните действия:** 
-
-1. Создайте конфигурацию docker-compose для Alertmanager с именем контейнера <ваши фамилия и инициалы>-netology-alertmanager. 
-2. Добавьте необходимые тома с данными и [конфигурацией](https://github.com/netology-code/sdvps-homeworks/tree/main/6-04/alertmanager), сеть, режим и очередность запуска.
-3. Обновите конфигурацию Prometheus (необходимые изменения ищите в презентации или документации) и перезапустите его. 
-4. Обеспечьте внешний доступ к порту 9093 c докер-сервера.
-
-В качестве решения приложите скриншот с событием из Alertmanager.
-
----
-
-### Задание 10* 
-
-Запустите свой сценарий на чистом железе без предзагруженных образов.
-
-**Ответьте на вопросы в свободной форме:**
-
-1. Опишите выполненный вами процесс развертывания сценария.
-2. Как вы думаете зачем может понадобиться такой способ развертывания?
-
