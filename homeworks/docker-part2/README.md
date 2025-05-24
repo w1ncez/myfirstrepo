@@ -41,9 +41,11 @@ services:
 volumes:
 networks:
   vintsentinisg-my-netology-hw
-    ipam:
+    driver: bridge
+     ipam:
       config:
       - subnet: 10.5.0.0/16
+      - gateway: 10.5.0.1
 ```
 
 ---
@@ -60,20 +62,20 @@ networks:
 version: '3'
 
 services:
-  prometheus:
-    image: prom/prometheus:v2.36.1
-    container_name: vintsentinisg-netology-prometheus
-    ports:
-      - "9090:9090"
-    volumes:
-      - type: bind
-        source: ./prometheus/prometheus.yml
-        target: /etc/prometheus/prometheus.yml
-    networks:
-      vintsentinisg-my-netology-hw
-        ipam:
-          config:
-          - subnet: 10.5.0.0/16
+prometheus:
+image: prom/prometheus:v2.47.2
+container_name: vintsentinisg-netology-prometheus
+command: --web.enable-lifecycle --config.file=/etc/prometheus/prometheus.yml
+ports:
+- 9090:9090
+volumes:
+- ./prometheus:/etc/prometheus
+- prometheus-data:/prometheus
+networks:
+- vintsentinisg-my-netology-hw
+restart: always
+volumes:
+prometheus-data:
 
 ```
 
@@ -86,6 +88,24 @@ services:
 1. Создайте конфигурацию docker-compose для Pushgateway с именем контейнера <ваши фамилия и инициалы>-netology-pushgateway. 
 2. Обеспечьте внешний доступ к порту 9091 c докер-сервера.
 
+```
+version: '3'
+services:
+pushgateway:
+image: prom/pushgateway:v1.6.2
+container_name: vintsentinisg-netology-pushgateway
+ports:
+- 9091:9091
+networks:
+- vintsentinisg-my-netology-hw
+depends_on:
+- prometheus
+restart: unless-stopped
+
+
+```
+
+
 ---
 
 ### Задание 5 
@@ -97,6 +117,31 @@ services:
 3. Добавьте переменную окружения с путем до файла с кастомными настройками (должен быть в томе), в самом файле пропишите логин=<ваши фамилия и инициалы> пароль=netology.
 4. Обеспечьте внешний доступ к порту 3000 c порта 80 докер-сервера.
 
+```
+version: '3'
+services:
+grafana:
+image: grafana/grafana
+container_name: vintsentinisg-netology-grafana
+environment:
+GF_PATHS_CONFIG: /etc/grafana/custom.ini
+ports:
+- 80:3000
+volumes:
+- ./grafana:/etc/grafana
+- grafana-data:/var/lib/grafana
+networks:
+- vintsentinisg-my-netology-hw
+depends_on:
+- prometheus
+restart: unless-stopped
+volumes:
+grafana-data:
+
+
+```
+
+
 ---
 
 ### Задание 6 
@@ -107,6 +152,14 @@ services:
 2. Настройте режимы перезапуска для контейнеров.
 3. Настройте использование контейнерами одной сети.
 5. Запустите сценарий в detached режиме.
+
+```
+
+
+```
+
+
+
 
 ---
 
