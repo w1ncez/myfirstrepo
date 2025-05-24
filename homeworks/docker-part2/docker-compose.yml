@@ -2,7 +2,7 @@ version: '3.3'
 
 services:
   prometheus:
-    image: prom/prometheus:v2.47.2
+    image: prom/prometheus:v2.54.1
     container_name: vintsentinisg-netology-prometheus
     command: --web.enable-lifecycle --config.file=/etc/prometheus/prometheus.yml
     ports:
@@ -14,7 +14,7 @@ services:
     - vintsentinisg-my-netology-hw
     restart: always
   pushgateway:
-    image: prom/pushgateway:v1.6.2
+    image: prom/pushgateway:v1.9.0
     container_name: vintsentinisg-netology-pushgateway
     ports:
     - 9091:9091
@@ -24,10 +24,10 @@ services:
     - prometheus
     restart: unless-stopped
   grafana:
-    image: grafana/grafana
+    image: grafana/grafana:11.2.0
     container_name: vintsentinisg-netology-grafana
     environment:
-    GF_PATHS_CONFIG: /etc/grafana/custom.ini
+     GF_PATHS_CONFIG: /etc/grafana/custom.ini
     ports:
     - 80:3000
     volumes:
@@ -42,10 +42,8 @@ volumes:
   prometheus-data:
   grafana-data:
 networks:
-vintsentinisg-my-netology-hw:
-driver: bridge
-ipam:
-  config:
-  - subnet: 10.5.0.0/16
-  - gateway: 10.5.0.1
-
+ vintsentinisg-my-netology-hw:
+  driver: bridge
+  ipam:
+   config:
+   - subnet: 10.5.0.0/16
