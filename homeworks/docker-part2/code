@@ -1,0 +1,73 @@
+version: '3'
+services:
+
+netology-app
+volumes:
+
+netology-lesson:
+
+networks:
+netology-lesson:
+
+
+
+
+version: '3'
+services:
+volumes:
+networks:
+monitoring-stack:
+driver: bridge
+ipam:
+config:
+- subnet: 10.5.0.0/16
+gateway: 10.5.0.1
+
+
+
+version: '3'
+services:
+prometheus:
+image: prom/prometheus:v2.47.2
+container_name: prometheus
+command: --web.enable-lifecycle --config.file=/etc/prometheus/prometheus.yml
+ports:
+- 9090:9090
+volumes:
+- ./prometheus:/etc/prometheus
+- prometheus-data:/prometheus
+networks:
+- monitoring-stack
+restart: always
+volumes:
+prometheus-data:
+
+
+
+version: '3'
+services:
+pushgateway:
+image: prom/pushgateway:v1.6.2
+container_name: pushgateway
+ports:
+- 9091:9091
+networks:
+- monitoring-stack
+depends_on:
+- prometheus
+restart: unless-stopped
+
+
+# prometheus.yml
+scrape_configs:
+- job_name: 'pushgateway'
+honor_labels: true
+static_configs:
+- targets: ['pushgateway:9091'
+
+
+Пушим метрику в Pushgateway:
+echo "docker 2" | curl --data-binary @-
+http://localhost:9091/metrics/job/netology
+
+
