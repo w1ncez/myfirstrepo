@@ -15,7 +15,7 @@
 2. Приложите в файл README.md текст использованных команд в GitHub.
 
 
-![картинка](URL)
+![картинка](https://github.com/w1ncez/myfirstrepo/blob/main/homeworks/zabbix_part1/dashboard.jpg?raw=true)
 ```
 sudo apt install postgresql
 wget https://repo.zabbix.com/zabbix/7.4/release/debian/pool/main/z/zabbix-release/zabbix-release_latest_7.4+debian12_all.deb
@@ -56,9 +56,9 @@ systemctl enable zabbix-server zabbix-agent apache2
 3. Приложите в файл README.md скриншот раздела Monitoring > Latest data для обоих хостов, где видны поступающие от агентов данные.
 4. Приложите в файл README.md текст использованных команд в GitHub
 
-![картинка](URL)
-![картинка](URL)
-![картинка](URL)
+![картинка](https://github.com/w1ncez/myfirstrepo/blob/main/homeworks/zabbix_part1/hosts.jpg?raw=true)
+![картинка](https://github.com/w1ncez/myfirstrepo/blob/main/homeworks/zabbix_part1/logs.jpg?raw=true)
+![картинка](https://github.com/w1ncez/myfirstrepo/blob/main/homeworks/zabbix_part1/items.jpg?raw=true)
 
 ```
 wget https://repo.zabbix.com/zabbix/7.4/release/debian/pool/main/z/zabbix-release/zabbix-release_latest_7.4+debian12_all.deb
