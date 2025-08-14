@@ -14,6 +14,29 @@
 1. Прикрепите в файл README.md скриншот авторизации в админке.
 2. Приложите в файл README.md текст использованных команд в GitHub.
 
+
+![картинка](URL)
+```
+sudo apt install postgresql
+wget https://repo.zabbix.com/zabbix/7.4/release/debian/pool/main/z/zabbix-release/zabbix-release_latest_7.4+debian12_all.deb
+dpkg -i zabbix-release_latest_7.4+debian12_all.deb
+apt update
+
+apt install zabbix-server-pgsql zabbix-frontend-php php8.2-pgsql zabbix-apache-conf zabbix-sql-scripts zabbix-agent
+
+
+sudo -u postgres createuser --pwprompt zabbix
+sudo -u postgres createdb -O zabbix zabbix
+
+zcat /usr/share/zabbix/sql-scripts/postgresql/server.sql.gz | sudo -u zabbix psql zabbix
+sudo nano /etc/zabbix/zabbix_server.conf
+
+systemctl restart zabbix-server zabbix-agent apache2
+systemctl enable zabbix-server zabbix-agent apache2
+```
+
+
+
 ---
 
 ### Задание 2 
@@ -33,16 +56,21 @@
 3. Приложите в файл README.md скриншот раздела Monitoring > Latest data для обоих хостов, где видны поступающие от агентов данные.
 4. Приложите в файл README.md текст использованных команд в GitHub
 
+![картинка](URL)
+![картинка](URL)
+![картинка](URL)
+
+```
+wget https://repo.zabbix.com/zabbix/7.4/release/debian/pool/main/z/zabbix-release/zabbix-release_latest_7.4+debian12_all.deb
+dpkg -i zabbix-release_latest_7.4+debian12_all.deb
+apt update
+
+apt install zabbix-agent
+
+systemctl restart zabbix-agent
+systemctl enable zabbix-agent
+
+tail /var/log/zabbix/zabbix_agentd.log
+
+```
 ---
-## Задание 3 со звёздочкой*
-Установите Zabbix Agent на Windows (компьютер) и подключите его к серверу Zabbix.
-
-#### Требования к результатам
-1. Приложите в файл README.md скриншот раздела Latest Data, где видно свободное место на диске C:
---- 
-
-## Критерии оценки
-
-1. Выполнено минимум 2 обязательных задания
-2. Прикреплены требуемые скриншоты и тексты 
-3. Задание оформлено в шаблоне с решением и опубликовано на GitHub
