@@ -14,6 +14,8 @@
 #### Требования к результату
 - [ ] Прикрепите к файлу README.md скриншот systemctl status prometheus, где будет написано: prometheus.service — Prometheus Service Netology Lesson 9.4 — [Ваши ФИО]
 
+![Задание 1](https://github.com/w1ncez/myfirstrepo/blob/main/homeworks/prometheus_part1/1.jpg?raw=true)
+
 ---
 
 ### Задание 2
@@ -27,6 +29,8 @@
 
 #### Требования к результату
 - [ ] Прикрепите к файлу README.md скриншот systemctl status node-exporter, где будет написано: node-exporter.service — Node Exporter Netology Lesson 9.4 — [Ваши ФИО]
+
+![Задание 2](https://github.com/w1ncez/myfirstrepo/blob/main/homeworks/prometheus_part1/2.jpg?raw=true)
 
 ---
 
@@ -43,6 +47,9 @@
 - [ ] Прикрепите к файлу README.md скриншот конфигурации из интерфейса Prometheus вкладки Status > Configuration
 - [ ] Прикрепите к файлу README.md скриншот из интерфейса Prometheus вкладки Status > Targets, чтобы было видно минимум два эндпоинта
 
+![Status-Configuration](https://github.com/w1ncez/myfirstrepo/blob/main/homeworks/prometheus_part1/3.jpg?raw=true)
+![Status-Targets](https://github.com/w1ncez/myfirstrepo/blob/main/homeworks/prometheus_part1/33.jpg?raw=true)
+
 ---
 ## Дополнительные задания со звёздочкой*
 Эти задания дополнительные. Их можно не выполнять. Это не повлияет на зачёт. Вы можете их выполнить, если хотите глубже разобраться в материале.
@@ -55,7 +62,6 @@
 #### Требования к результату
 - [ ] Прикрепите к файлу README.md скриншот левого нижнего угла интерфейса, чтобы при наведении на иконку пользователя были видны ваши ФИО
 
----
+![Grafana](https://github.com/w1ncez/myfirstrepo/blob/main/homeworks/prometheus_part1/4.jpg?raw=true)
 
-### Задание 5*
-Интегрируйте Grafana и Prometheus.
+---
