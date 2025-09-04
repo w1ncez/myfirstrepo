@@ -13,7 +13,8 @@
 - Необходимо сделать так, чтобы rsync подсчитывал хэш-суммы для всех файлов, даже если их время модификации и размер идентичны в источнике и приемнике.
 - На проверку направить скриншот с командой и результатом ее выполнения
 
-()[Картинка 1]
+![Задание 1](https://github.com/w1ncez/myfirstrepo/blob/main/homeworks/highavaliability/rsync/1%20(1).jpg?raw=true)
+
 
 ------
 
@@ -43,9 +44,8 @@ fi
 0 2 * * * /home/w1nce/backup.sh
 ```
 
-[](Картинка 2)
+![Задание 2](https://github.com/w1ncez/myfirstrepo/blob/main/homeworks/highavaliability/rsync/2%20(1).jpg?raw=true)
 
-[](Картинка 3)
 
 ------
 
