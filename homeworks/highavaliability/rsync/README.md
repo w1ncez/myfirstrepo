@@ -13,8 +13,7 @@
 - Необходимо сделать так, чтобы rsync подсчитывал хэш-суммы для всех файлов, даже если их время модификации и размер идентичны в источнике и приемнике.
 - На проверку направить скриншот с командой и результатом ее выполнения
 
-
-
+()[Картинка 1]
 
 ------
 
@@ -25,6 +24,28 @@
 - Резервная копия размещается локально, в директории `/tmp/backup`
 - На проверку направить файл crontab и скриншот с результатом работы утилиты.
 
+содержимое backup.sh
+```bash
+ #!/bin/bash
 
+DATE=$(date '+%Y-%m-%d %H:%M:%S')
+
+rsync -av --exclude='.*' /home/w1nce/ /tmp/backup/ > /dev/null 2>&1
+
+if [ $? -eq 0 ]; then
+echo "$DATE Backup completed successfully" >> /home/w1nce/backup.log
+else
+echo "$DATE Error occurred during backup" >> ~/home/w1nce/backup.log
+fi
+```
+задание crontab
+```bash
+0 2 * * * /home/w1nce/backup.sh
+```
+
+[](Картинка 2)
+
+[](Картинка 3)
 
 ------
+
