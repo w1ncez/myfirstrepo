@@ -9,6 +9,7 @@
 
 *Итогом выполнения домашнего задания будет приложенный скриншот веб-интерфейса RabbitMQ.*
 
+![Web RMQ GUI](https://github.com/w1ncez/myfirstrepo/blob/main/homeworks/DB/RMQ/rmq1.jpg?raw=true)
 ---
 
 ### Задание 2. Отправка и получение сообщений
@@ -29,6 +30,9 @@ $ pip install pika
 *В качестве решения домашнего задания приложите оба скриншота, сделанных на этапе выполнения.*
 
 Для закрепления материала можете попробовать модифицировать скрипты, чтобы поменять название очереди и отправляемое сообщение.
+
+![hello](https://github.com/w1ncez/myfirstrepo/blob/main/homeworks/DB/RMQ/rmq2.jpg?raw=true)
+![hello2](https://github.com/w1ncez/myfirstrepo/blob/main/homeworks/DB/RMQ/rmq3.jpg?raw=true)
 
 ---
 
