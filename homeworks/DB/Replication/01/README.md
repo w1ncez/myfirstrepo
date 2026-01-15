@@ -90,16 +90,17 @@ sudo systemctl status postgresql@16-main
 ```
 sudo -u postgres psql -c "SELECT pg_is_in_recovery();"
 ```
-![](slave_repl1)
+![](https://github.com/w1ncez/myfirstrepo/blob/main/homeworks/DB/Replication/01/slave%20repl1.jpg?raw=true)
+
 На мастере:
 ```
 sudo -u postgres psql -c "SELECT * FROM pg_stat_replication;"
 ```
-![](master_repl1)
+![](https://github.com/w1ncez/myfirstrepo/blob/main/homeworks/DB/Replication/01/master%20repl1.jpg?raw=true)
 ```
 sudo -u postgres psql -c "SELECT * FROM pg_replication_slots;"
 ```
-![](master_repl2)
+![](https://github.com/w1ncez/myfirstrepo/blob/main/homeworks/DB/Replication/01/master%20repl2.jpg?raw=true)
 
 Произведем тестовую вставку данныж на мастере:
 
@@ -107,11 +108,11 @@ sudo -u postgres psql -c "SELECT * FROM pg_replication_slots;"
 sudo -u postgres psql -c "CREATE TABLE IF NOT EXISTS test_replica (id SERIAL, msg TEXT);" 
 sudo -u postgres psql -c "INSERT INTO test_replica (msg) VALUES ('Hello from master at ' || NOW());"
 ```
-![](master_insert1)
+![](https://github.com/w1ncez/myfirstrepo/blob/main/homeworks/DB/Replication/01/master%20insert1.jpg?raw=true)
 
 Проверим данные на слэйве:
 
 ```bash
 sudo -u postgres psql -c "SELECT * FROM test_replica;"
 ```
-![](slave_answer1)
+![](https://github.com/w1ncez/myfirstrepo/blob/main/homeworks/DB/Replication/01/slave%20answer1.jpg?raw=true)
