@@ -65,6 +65,22 @@ https://hub.docker.com/repository/docker/w1ncez/custom-nginx
 
 В качестве ответа приложите скриншоты консоли, где видно все введенные команды и их вывод.
 
+--
+
+Команда docker attach подключает к главному процессу контейнера (PID 1).
+При нажатии Ctrl+C отправляется сигнал SIGINT этому процессу и контейнер останавливается.
+
+<img width="1422" height="1035" alt="image" src="https://github.com/user-attachments/assets/e1b12397-41c4-4eae-8ca2-c9b2204119d4" />
+<img width="1571" height="928" alt="image" src="https://github.com/user-attachments/assets/bdcef65e-4374-455a-a52b-acce47ad4646" />
+<img width="1084" height="287" alt="image" src="https://github.com/user-attachments/assets/33b92ab1-e726-45fc-8d25-e52e379d8515" />
+<img width="1053" height="124" alt="image" src="https://github.com/user-attachments/assets/a8f00391-fe87-44c5-aad1-865a00280a93" />
+
+Проблема с недоступностью порта 8080 означает, что Docker пробрасывает порт 80 контейнера на 8080 хоста, но nginx теперь слушает порт 81 внутри контейнера.
+
+<img width="900" height="1148" alt="image" src="https://github.com/user-attachments/assets/fa3e23c3-7437-4a06-95e6-0780dc4dc82b" />
+
+---
+
 ## Задача 4
 
 
@@ -77,6 +93,16 @@ https://hub.docker.com/repository/docker/w1ncez/custom-nginx
 
 В качестве ответа приложите скриншоты консоли, где видно все введенные команды и их вывод.
 
+--
+
+<img width="734" height="109" alt="image" src="https://github.com/user-attachments/assets/1f86099c-7957-4995-bea4-da11b13df53b" />
+<img width="725" height="112" alt="image" src="https://github.com/user-attachments/assets/fe581327-da20-434e-baf8-292704a13524" />
+<img width="1122" height="150" alt="image" src="https://github.com/user-attachments/assets/86311894-e273-4c1c-8fdb-7abee76f95df" />
+<img width="657" height="256" alt="image" src="https://github.com/user-attachments/assets/e5d6c65e-6a15-4122-91a1-b30ab1fa76a0" />
+<img width="373" height="47" alt="image" src="https://github.com/user-attachments/assets/5c1c2238-7f94-457d-81ef-10444b359384" />
+
+
+---
 
 ## Задача 5
 
@@ -124,5 +150,26 @@ services:
 7. Удалите любой из манифестов компоуза(например compose.yaml).  Выполните команду "docker compose up -d". Прочитайте warning, объясните суть предупреждения и выполните предложенное действие. Погасите compose-проект ОДНОЙ(обязательно!!) командой.
 
 В качестве ответа приложите скриншоты консоли, где видно все введенные команды и их вывод, файл compose.yaml , скриншот portainer c задеплоенным компоузом.
+
+--
+
+<img width="875" height="343" alt="image" src="https://github.com/user-attachments/assets/c73781e0-35b5-4785-8767-dec3290699fb" />
+Согласно официальной документации, приоритет выше у файла *compose.yaml*. Файл *docker-compose.yaml* в данном случае игнорируется.
+<img width="1197" height="261" alt="image" src="https://github.com/user-attachments/assets/9b4def91-80b1-42a0-8493-32a8e8605722" />
+<img width="990" height="329" alt="image" src="https://github.com/user-attachments/assets/dfd7b790-facd-4233-8600-490f8fd2a225" />
+<img width="1528" height="294" alt="image" src="https://github.com/user-attachments/assets/2b96001f-d154-4d02-a99d-ec403b07c6b9" />
+<img width="950" height="1087" alt="image" src="https://github.com/user-attachments/assets/2411e142-a69c-4246-9268-d3e7037e46b4" />
+<img width="1850" height="82" alt="image" src="https://github.com/user-attachments/assets/00c9025f-5fcd-4b01-9b52-8eebb0ad0e73" />
+<img width="1866" height="98" alt="image" src="https://github.com/user-attachments/assets/c226a992-48f5-4849-a881-072adabdcc0d" />
+<img width="1484" height="110" alt="image" src="https://github.com/user-attachments/assets/af9be8b1-8644-424f-908c-ba3f87fd66d7" />
+По умолчанию Docker не удаляет контейнеры, которых нет в текущем файле compose и они остаются "сиротами".
+
+
+
+
+
+
+
+
 
 ---
