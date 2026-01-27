@@ -33,27 +33,15 @@ See 'snap info docker' for additional versions.
    - Создайте `.dockerignore` файл для исключения ненужных файлов
    - Используйте ```CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "5000"]``` для запуска
    - Протестируйте корректность сборки 
-3. (Необязательная часть, *) Изучите инструкцию в проекте и запустите web-приложение без использования docker, с помощью venv. (Mysql БД можно запустить в docker run).
-4. (Необязательная часть, *) Изучите код приложения и добавьте управление названием таблицы через ENV переменную.
 ---
 ### ВНИМАНИЕ!
 !!! В процессе последующего выполнения ДЗ НЕ изменяйте содержимое файлов в fork-репозитории! Ваша задача ДОБАВИТЬ 5 файлов: ```Dockerfile.python```, ```compose.yaml```, ```.gitignore```, ```.dockerignore```,```bash-скрипт```. Если вам понадобилось внести иные изменения в проект - вы что-то делаете неверно!
 
 --
 
+[Ссылка на репозиторий](https://github.com/w1ncez/shvirtd-example-python)
+<img width="1656" height="410" alt="image" src="https://github.com/user-attachments/assets/9f7e42db-dda3-4c75-8e3a-fa1bccf1ebf0" />
 
-
-
----
-
-## Задача 2 (*)
-1. Создайте в yandex cloud container registry с именем "test" с помощью "yc tool" . [Инструкция](https://cloud.yandex.ru/ru/docs/container-registry/quickstart/?from=int-console-help)
-2. Настройте аутентификацию вашего локального docker в yandex container registry.
-3. Соберите и залейте в него образ с python приложением из задания №1.
-4. Просканируйте образ на уязвимости.
-5. В качестве ответа приложите отчет сканирования.
-
---
 
 
 ---
@@ -76,6 +64,8 @@ See 'snap info docker' for additional versions.
 
 --
 
+<img width="1769" height="788" alt="image" src="https://github.com/user-attachments/assets/c3c9fb0f-63a1-4488-a99d-f9af357aa14d" />
+
 
 ---
 
@@ -85,27 +75,15 @@ See 'snap info docker' for additional versions.
 2. Подключитесь к Вм по ssh и установите docker.
 3. Напишите bash-скрипт, который скачает ваш fork-репозиторий в каталог /opt и запустит проект целиком.
 4. Зайдите на сайт проверки http подключений, например(или аналогичный): ```https://check-host.net/check-http``` и запустите проверку вашего сервиса ```http://<внешний_IP-адрес_вашей_ВМ>:8090```. Таким образом трафик будет направлен в ingress-proxy. Трафик должен пройти через цепочки: Пользователь → Internet → Nginx → HAProxy → FastAPI(запись в БД) → HAProxy → Nginx → Internet → Пользователь
-5. (Необязательная часть) Дополнительно настройте remote ssh context к вашему серверу. Отобразите список контекстов и результат удаленного выполнения ```docker ps -a```
 6. Повторите SQL-запрос на сервере и приложите скриншот и ссылку на fork.
 
 
 --
 
 
+<img width="486" height="324" alt="image" src="https://github.com/user-attachments/assets/8cdec7b0-9de4-4d55-8d52-4eb8cd084139" />
 
----
-
-
-
-## Задача 5 (*)
-1. Напишите и задеплойте на вашу облачную ВМ bash скрипт, который произведет резервное копирование БД mysql в директорию "/opt/backup" с помощью запуска в сети "backend" контейнера из образа ```schnitzler/mysqldump``` при помощи ```docker run ...``` команды. Подсказка: "документация образа."
-2. Протестируйте ручной запуск
-3. Настройте выполнение скрипта раз в 1 минуту через cron, crontab или systemctl timer. Придумайте способ не светить логин/пароль в git!!
-4. Предоставьте скрипт, cron-task и скриншот с несколькими резервными копиями в "/opt/backup"
-
-
---
-
+https://github.com/w1ncez/shvirtd-example-python
 
 
 ---
@@ -119,6 +97,15 @@ See 'snap info docker' for additional versions.
 
 --
 
+<img width="1798" height="1121" alt="image" src="https://github.com/user-attachments/assets/ff9c3fbd-3fee-4862-adc3-340911e8b794" />
+
+<img width="1483" height="366" alt="image" src="https://github.com/user-attachments/assets/2d04d807-ec0e-4773-bdff-ce4b75d172f2" />
+
+<img width="1793" height="1095" alt="image" src="https://github.com/user-attachments/assets/b5fd7860-ba44-421e-b402-a543d3e544a2" />
+
+<img width="1303" height="101" alt="image" src="https://github.com/user-attachments/assets/5e4687b9-aff1-488e-a871-29b0cb4d2cc5" />
+
+
 
 ---
 
@@ -131,31 +118,7 @@ See 'snap info docker' for additional versions.
 
 --
 
-
-
----
-
-
-
-## Задача 6.2 (**)
-Предложите способ извлечь файл из контейнера, используя только команду docker build и любой Dockerfile.  
-Предоставьте скриншоты  действий .
-
-
---
-
-
-
----
-
-
-## Задача 7 (***)
-Запустите ваше python-приложение с помощью runC, не используя docker или containerd.  
-Предоставьте скриншоты  действий .
-
---
-
-
+<img width="1118" height="427" alt="image" src="https://github.com/user-attachments/assets/35ee45dd-c793-4836-9bc7-f96a982e065a" />
 
 
 ---
